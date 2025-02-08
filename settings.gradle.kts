@@ -1,4 +1,5 @@
 rootProject.name = "book-read-kmp"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
@@ -33,7 +34,7 @@ include(":composeApp")
 includeSubprojects()
 
 fun includeSubprojects() {
-    includeModulesIn("feature-modules", depth = 2)
+    includeModulesIn("features", depth = 2)
     includeModulesIn("core", depth = 2)
 }
 

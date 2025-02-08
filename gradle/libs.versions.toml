@@ -11,12 +11,13 @@ packageVersion = "1.0.0"
 # https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compatibility-and-versioning.html#kotlin-compatibility
 kotlin = "2.1.0"
 compose-multiplatform = "1.7.3"
-configuration-version = "0.0.1"
+configuration-version = "0.0.2-alpha01"
 
 agp = "8.6.1"
 
 # view kotlin ksp version here: https://github.com/google/ksp/releases
-ksp = "2.0.21-1.0.28"
+ksp = "2.1.0-1.0.29"
+room = "2.7.0-alpha08"
 
 # Libraries in alpha or beta
 androidx-uiTest = "1.7.4"
@@ -41,3 +42,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }

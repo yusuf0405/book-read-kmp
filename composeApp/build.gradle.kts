@@ -9,7 +9,24 @@ plugins {
     alias(libs.plugins.kmp.configuration)
 }
 
+val allModules = listOf(
+    projects.core.common,
+    projects.core.data,
+    projects.core.domain,
+    projects.core.database,
+    projects.core.network,
+    projects.core.ui,
+
+    projects.features.favorites.favoritesApi,
+    projects.features.favorites.favoritesImpl,
+    projects.features.main.mainApi,
+    projects.features.main.mainImpl,
+    projects.features.search.searchApi,
+    projects.features.search.searchImpl,
+)
+
 kotlin {
+    jvmToolchain(17)
     androidTarget {
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
@@ -47,6 +64,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            allModules.forEach(::implementation)
             implementation(libs.desingnsystem)
         }
     }
