@@ -1,20 +1,43 @@
 [versions]
 
+applicationId = "io.joseph.book.read.androidApp"
+versionCode = "1"
+versionName = "1.0.0"
+testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+packageName = "book-read-kmp"
+packageVersion = "1.0.0"
+
+# view kotlin and compose multiplatform compatibility here:
+# https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compatibility-and-versioning.html#kotlin-compatibility
 kotlin = "2.1.0"
-compose = "1.7.3"
+compose-multiplatform = "1.7.3"
+configuration-version = "0.0.1"
+
 agp = "8.6.1"
-androidx-activityCompose = "1.9.3"
+
+# view kotlin ksp version here: https://github.com/google/ksp/releases
+ksp = "2.0.21-1.0.28"
+
+# Libraries in alpha or beta
 androidx-uiTest = "1.7.4"
+buildConfig = "5.4.0"
+desingnsystem = "1.0.1"
 
 [libraries]
 
-androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-uitest-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-uitest-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
+desingnsystem = { module = "io.github.yusuf0405:designsystem", version.ref = "desingnsystem" }
 
 [plugins]
-
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kmp-configuration = { id = "io.github.yusuf0405.kmp.configuration", version.ref = "configuration-version" }
+
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

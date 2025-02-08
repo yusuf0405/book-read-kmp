@@ -1,23 +1,21 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import extensions.with
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose)
     alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.kmp.configuration)
 }
 
 kotlin {
-    jvmToolchain(11)
     androidTarget {
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
     jvm()
-
     wasmJs {
         browser()
         binaries.executable()
@@ -34,46 +32,34 @@ kotlin {
         }
     }
 
+    with(
+        configuration = kmpConfiguration,
+        extension = this,
+        composeDependencies = compose
+    ) { configuration, extension, composeDependencies ->
+        configuration.apply {
+            compose.configureDependencies(extension, composeDependencies)
+            coroutine.configureDependencies(extension)
+            lifecycle.configureDependencies(extension)
+            koin.configureDependencies(extension)
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.desingnsystem)
         }
-
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
-        }
-
-        androidMain.dependencies {
-            implementation(compose.uiTooling)
-            implementation(libs.androidx.activityCompose)
-        }
-
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
-
     }
 }
 
 android {
     namespace = "io.joseph.book.read"
-    compileSdk = 35
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 35
-
-        applicationId = "io.joseph.book.read.androidApp"
-        versionCode = 1
-        versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = libs.versions.applicationId.get()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
+        testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
     }
 }
 
@@ -89,8 +75,8 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "book-read-kmp"
-            packageVersion = "1.0.0"
+            packageName = libs.versions.packageName.get()
+            packageVersion = libs.versions.packageVersion.get()
 
             linux {
                 iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
