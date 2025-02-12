@@ -26,17 +26,13 @@ val allModules = listOf(
 )
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(kmpConfiguration.versions.jvmTarget)
     androidTarget {
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
-    jvm()
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+    jvm("desktop")
 
     listOf(
         iosX64(),
@@ -90,7 +86,7 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "io.joseph.book.read.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

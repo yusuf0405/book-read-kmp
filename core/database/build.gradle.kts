@@ -19,10 +19,15 @@ kotlin {
             coroutine.configureDependencies(extension)
             koin.configureDependencies(extension)
             room.configureDependencies(extension)
+            kotlinX.configureDependencies(extension)
         }
     }
 
     sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core.common)
+        }
+
         dependencies {
             ksp(kmpConfiguration.room.roomCompiler)
         }
