@@ -32,6 +32,10 @@ kotlin {
     }
 }
 
+dependencies {
+    debugImplementation(compose.uiTooling)
+}
+
 android {
     namespace = "io.joseph.book.read.main"
 }

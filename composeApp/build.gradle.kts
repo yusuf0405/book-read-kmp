@@ -85,6 +85,7 @@ android {
 dependencies {
     androidTestImplementation(libs.androidx.uitest.junit4)
     debugImplementation(libs.androidx.uitest.testManifest)
+    debugImplementation(compose.uiTooling)
 }
 
 compose.desktop {
